@@ -1,0 +1,28 @@
+[
+    {
+        "UserId": 1,
+        "singaporeDollar": 0,
+        "usDollar": 0,
+        "britishPoundSterling": 0,
+        "euro": 0,
+        "japaneseYen": 0,
+        "chinaRenminbi": 0,
+        "australianDollar": 0,
+        "canadianDollar": 0,
+        "swissFranc": 0,
+        "hongkongDollar": 0
+    },
+    {
+        "UserId": 2,
+        "singaporeDollar": 0,
+        "usDollar": 0,
+        "britishPoundSterling": 0,
+        "euro": 0,
+        "japaneseYen": 0,
+        "chinaRenminbi": 0,
+        "australianDollar": 0,
+        "canadianDollar": 0,
+        "swissFranc": 0,
+        "hongkongDollar": 0
+    }
+]

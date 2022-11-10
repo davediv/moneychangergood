@@ -1,0 +1,82 @@
+[
+    {
+        "name": "singaporeDollar",
+        "valueBuy": 11201,
+        "valueSell": 11000,
+        "country": "Singapore",
+        "code": "SGD",
+        "imageUrl": "https://www.worldometers.info/img/flags/sn-flag.gif"
+    },
+    {
+        "name": "usDollar",
+        "valueBuy": 15690,
+        "valueSell": 15200,
+        "country": "United States",
+        "code": "USD",
+        "imageUrl": "https://www.worldometers.info/img/flags/us-flag.gif"
+    },
+    {
+        "name": "britishPoundSterling",
+        "valueBuy": 17895,
+        "valueSell": 17500,
+        "country": "United Kingdom",
+        "code": "GBP",
+        "imageUrl": "https://www.worldometers.info/img/flags/uk-flag.gif"
+    },
+    {
+        "name": "euro",
+        "valueBuy": 15742,
+        "valueSell": 15400,
+        "country": "European Union",
+        "code": "EUR",
+        "imageUrl": "https://en.wikipedia.org/wiki/European_Union#/media/File:Flag_of_Europe.svg"
+    },
+    {
+        "name": "japaneseYen",
+        "valueBuy": 107,
+        "valueSell": 95,
+        "country": "Japan",
+        "code": "JPY",
+        "imageUrl": "https://www.worldometers.info/img/flags/ja-flag.gif"
+    },
+    {
+        "name": "chinaRenminbi",
+        "valueBuy": 2164,
+        "valueSell": 2050,
+        "country": "China",
+        "code": "CNY",
+        "imageUrl": "https://www.worldometers.info/img/flags/ch-flag.gif"
+    },
+    {
+        "name": "australianDollar",
+        "valueBuy": 10084,
+        "valueSell": 9900,
+        "country": "Australia",
+        "code": "AUD",
+        "imageUrl": "https://www.worldometers.info/img/flags/as-flag.gif"
+    },
+    {
+        "name": "canadianDollar",
+        "valueBuy": 11603,
+        "valueSell": 11400,
+        "country": "Canada",
+        "code": "CAD",
+        "imageUrl": "https://www.worldometers.info/img/flags/ca-flag.gif"
+    },
+    {
+        "name": "swissFranc",
+        "valueBuy": 15973,
+        "valueSell": 15700,
+        "country": "Swiss",
+        "code": "CHF",
+        "imageUrl": "https://www.worldometers.info/img/flags/sz-flag.gif"
+    },
+    {
+        "name": "hongkongDollar",
+        "valueBuy": 1999,
+        "valueSell": 1700,
+        "country": "Hong Kong",
+        "code": "HKD",
+        "imageUrl": "https://en.wikipedia.org/wiki/Hong_Kong#/media/File:Flag_of_Hong_Kong.svg"
+    }
+]

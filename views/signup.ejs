@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGNUP</title>
+    <%- include('partials/style'); %>
+</head>
+<body>
+    <h1>SIGNUP</h1>
+
+    <form action="/signup" method="post">
+
+        <div class="input-wrap">
+            <label for="name">Name : </label><br>
+            <input type="text" id="name" name="name">
+        </div>
+
+        <div class="input-wrap">
+            <label for="email">Email : </label><br>
+            <input type="text" id="email" name="email">
+        </div>
+
+        <div class="input-wrap">
+            <label for="password">Password : </label><br>
+            <input type="password" id="password" name="password">
+        </div>
+
+        <div class="input-wrap">
+            <label for="email">Role : </label><br>
+            <input type="radio" id="user" name="role" value="false">
+            <label for="html">User</label><br>
+            <input type="radio" id="admin" name="role" value="true">
+            <label for="css">Admin</label><br>
+        </div>
+
+        <div class="input-wrap">
+            <button class="btn-click" type="submit">SUBMIT</button>
+        </div>
+        
+    </form>
+
+
+    <!--
+        {
+    "id": 1,
+    "email": "yes@mail.com",
+    "password": "12345",
+    "name": "Yes Man",
+    "role": false,
+    "balance": 1000000,
+    "createdAt": "2022-11-10T08:06:00.392Z",
+    "updatedAt": "2022-11-10T08:06:00.392Z"
+  },
+     -->
+
+    <div class="btn-wrap">
+        <a class="btn-click" href="/signin">SIGNIN</a>
+    </div>
+
+    <table class="table" border="1px">
+        <thead>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Balance</th>
+            <th>Admin</th>
+        </thead>
+        <tbody>
+            <% data.forEach(el => { %>
+                <tr>
+                    <td><%= el.id %></td>
+                    <td><%= el.name %></td>
+                    <td><%= el.email %></td>
+                    <td><%= el.password %></td>
+                    <td><%= el.balance %></td>
+                    <td><%= el.role %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    
+    
+    
+
+</body>
+</html>

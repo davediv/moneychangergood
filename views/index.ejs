@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGIN</title>
+    <%- include('partials/style'); %>
+</head>
+<body>
+    <h1>MONEY CHANGER</h1>
+
+    <div class="btn-wrap">
+        <a class="btn-click" href="/signup">SIGNUP</a>
+        <a class="btn-click" href="/signin">SIGNIN</a>
+    </div>
+
+
+<!-- {
+    "id": 1,
+    "name": "singaporeDollar",
+    "valueSell": 11000,
+    "valueBuy": 11201,
+    "country": "Singapore",
+    "imageUrl": "https://www.worldometers.info/img/flags/sn-flag.gif",
+    "code": "SGD",
+    "createdAt": "2022-11-10T08:06:00.399Z",
+    "updatedAt": "2022-11-10T08:06:00.399Z"
+  }, -->
+    
+    <table class="table" border="1px">
+        <thead>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Code</th>
+            <th>Price Sell</th>
+            <th>Price Buy</th>
+            <th>Country</th>
+            <th>Img</th>
+        </thead>
+        <tbody>
+            <% data.forEach(el => { %>
+                <tr>
+                    <td><%= el.id %></td>
+                    <td><%= el.name %></td>
+                    <td><%= el.code %></td>
+                    <td><%= el.valueSell %></td>
+                    <td><%= el.valueBuy %></td>
+                    <td><%= el.country %></td>
+                    <td><img class="img-flag" src="<%= el.imageUrl %>" alt="<%= el.name %>"></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    
+    
+</body>
+</html>

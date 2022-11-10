@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGNIN</title>
+    <%- include('partials/style'); %>
+</head>
+<body>
+    <h1>SIGNIN</h1>
+
+    <form action="/signin" method="post">
+
+        <div class="input-wrap">
+            <% if (error) { %>
+                <p style="color: red;"><%= error %></p>
+            <% } %> 
+        </div>
+
+        <div class="input-wrap">
+            <label for="email">Username : </label><br>
+            <input type="text" id="email" name="email">
+        </div>
+
+        <div class="input-wrap">
+            <label for="password">Password : </label><br>
+            <input type="password" id="password" name="password">
+        </div>
+
+        <div class="input-wrap">
+            <button class="btn-click" type="submit">SUBMIT</button>
+        </div>
+
+    </form>
+
+    <div class="btn-wrap">
+        <a class="btn-click" href="/signup">SIGNUP</a>
+    </div>
+    
+    
+
+</body>
+</html>

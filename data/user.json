@@ -1,0 +1,16 @@
+[
+    {
+        "name": "Yes Man",
+        "balance": "1000000",
+        "email": "yes@mail.com",
+        "password": "12345",
+        "role": "client"
+    },
+    {
+        "name": "Moderator Man",
+        "balance": "1000000",
+        "email": "moderator@mail.com",
+        "password": "qwerty",
+        "role": "admin"
+    }
+]
