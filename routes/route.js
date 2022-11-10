@@ -19,19 +19,13 @@ router.post('/signin', Controller.postSignin);
 
 router.get("/home",isLogin,isAdmin ,Controller.viewHome)
 
-// router.use((req, res, next) => {
+//CURRENCIES - GET
+router.get("/currencies",isLogin, isAdmin, Controller.viewCurrencies)
 
-//     if (req.session.userId) {
-//         next()
-//     } else {
-//         let error = "Login first!"
-//         res.redirect(`/signin?error=${error}`)
-//     }
-// })
-
-
-// isLogin
-// router.post('/test123', Controller.udahLogin);
+//CURRENCY BUY - SELL - EDIT
+router.post('/transactionBuy/:id', isLogin, Controller.transactionBuy)
+router.post('/transactionSell/:id', isLogin, Controller.transactionSell)
+router.post('/modifycurrency/:id', isLogin, isAdmin, Controller.modifyCurrency)
 
 
 

@@ -5,8 +5,98 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+    table,thead,th,tbody,td{border: 1px solid;}
+    </style>
 </head>
 <body>
-    
+    <h3>Balance: <%=addSymbol(data.balance, "IDR")%></h3>
+    <h1>Currencies List</h1>
+   <% if(invalidMsg){ %>
+
+       <h3 style="color: red;"><%= invalidMsg.msg %></h3> 
+       <% if (invalidMsg.failedFilter){ %>
+
+        <h3 style="color: red;"><%= invalidMsg.failedFilter %></h3> 
+       <%} %>
+
+    <%}%>
+    <form action="/currencies?sort=" method="get">
+        <select name="sort" id="">
+
+            <option selected disabled>sort by</option>
+            <option value="valueSell">by sell value</option>
+            <option value="valueBuy">by buy value</option>
+        </select>
+
+        <input type="submit" value="Sort">
+    </form>
+
+    <form action="/currencies?filter=" method="get">
+        <select name="filterby" id="">
+
+            <option selected disabled>filter by</option>
+            <option value="valueSell">by sell value</option>
+            <option value="valueBuy">by buy value</option>
+        </select>
+        <input type="number" name="min">
+        <input type="number" name="max">
+
+        <input type="submit" value="filter">
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Currency</th>
+                <th>Value Buy</th>
+                <th>Value Sell</th>
+                <th>Country</th>
+                <th>Transaction</th>
+               <% if (adminAccess === true){ %>
+                    <th>Admin Access</th>
+                <% }  %>
+            </tr>
+        </thead>
+
+        <tbody>
+                <% currencies.forEach((el, index) => { %>
+
+                    <tr>
+                        <td><%= index + 1 %></td>
+                        <td><%= el.code %></td>
+                        <td><%= el.toRupiah(el.valueBuy) %></td>
+                        <td><%= el.toRupiah(el.valueSell) %></td>
+                        <td><%= el.country %></td>
+                        <td><form action="/transactionBuy/<%=el.id%>" method="post">
+                            <input type="number" name="transactionAmount" id="">
+                            <input type="submit" value="Buy">
+                             </form>
+                             <form action="/transactionSell/<%=el.id%>" method="post">
+                                <input type="number" name="transactionAmount" id="">
+                                <input type="submit" value="Sell">
+                                 </form>
+                        </td>
+                        <% if (adminAccess === true){ %>
+
+                            
+                               <td>
+                                 <form action="/modifycurrency/<%=el.id%>" method="post"><input type="submit" value="submit">
+                                
+                                    <input type="number" id="" placeholder="Value Buy" name="valueBuy" value="<%= el.valueBuy%>">
+                                    <input type="number" id="" placeholder="Value Sell" name="valueSell" value="<%= el.valueSell%>">
+                                </form>
+                                 </td>
+
+                        <% } %>
+                            
+                    
+
+
+
+                    </tr>
+                <% }) %>
+        </tbody>
+    </table>
 </body>
 </html>

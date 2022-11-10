@@ -1,7 +1,7 @@
 {
   "name": "pairproject",
   "version": "1.0.0",
-  "description": "",
+  "description": "- landing page:\r   Login v\r   register v",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,5 +17,13 @@
     "iplocation": "^7.2.0",
     "pg": "^8.8.0",
     "sequelize": "^6.25.5"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davediv/moneychangergood.git"
+  },
+  "bugs": {
+    "url": "https://github.com/davediv/moneychangergood/issues"
+  },
+  "homepage": "https://github.com/davediv/moneychangergood#readme"
 }
