@@ -2,7 +2,7 @@
   "development": {
     "username": "postgres",
     "password": "postgres",
-    "database": "money_changerDB1",
+    "database": "money_changerDB2",
     "host": "localhost",
     "dialect": "postgres"
   }

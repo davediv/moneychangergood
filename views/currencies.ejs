@@ -101,6 +101,12 @@
                             </tbody>
                     </table>
             </div>
-        <%- include('partials/footer'); %>
+            <% if (adminAccess === true) { %>
+        <%- include('partials/footerin'); %>
+
+           <% }else { %>
+
+                <%- include('partials/footer'); %>
+           <% } %>
 </body>
 </html>

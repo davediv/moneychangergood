@@ -11,6 +11,10 @@
     <%- include('partials/navbarin'); %>
 
     <div class="container">
+        <% if (transaction) { %>
+            <p style="color: red; text-align: center;"><%= transaction %></p>
+        <% } %>
+
         <h1><%= greeting %> </h1>
 
         <table class="border-gray">
@@ -78,6 +82,11 @@
 
     </div>
     
-    <%- include('partials/footer'); %>
-</body>
+    <% if (adminAccess === true) { %>
+        <%- include('partials/footerin'); %>
+
+           <% }else { %>
+
+                <%- include('partials/footer'); %>
+           <% } %></body>
 </html>

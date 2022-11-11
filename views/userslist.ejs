@@ -24,7 +24,7 @@
      -->
 
      <div class="container">
-         <table class="table" border="1px">
+         <table class="border-gray">
              <thead>
                  <th>ID</th>
                  <th>EMAIL</th>
@@ -40,8 +40,8 @@
                          <td><%= el.email %></td>
                          <td><%= el.name %></td>
                          <td><%= el.role %></td>
-                         <td><%= el.balance %></td>
-                         <td><a href="/user/<%= el.id %>/delete">DELETE</a></td>
+                         <td><%= addSymbol(el.balance, "IDR") %></td>
+                         <td><a class="btn-click" href="/user/<%= el.id %>/delete">DELETE</a></td>
                      </tr>
                  <% }) %>
              </tbody>

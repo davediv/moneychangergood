@@ -29,7 +29,7 @@
         "valueSell": 15400,
         "country": "European Union",
         "code": "EUR",
-        "imageUrl": "https://en.wikipedia.org/wiki/European_Union#/media/File:Flag_of_Europe.svg"
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/192px-Flag_of_Europe.svg.png"
     },
     {
         "name": "japaneseYen",
@@ -77,6 +77,6 @@
         "valueSell": 1700,
         "country": "Hong Kong",
         "code": "HKD",
-        "imageUrl": "https://en.wikipedia.org/wiki/Hong_Kong#/media/File:Flag_of_Hong_Kong.svg"
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Flag_of_Hong_Kong.svg/400px-Flag_of_Hong_Kong.svg.png"
     }
 ]

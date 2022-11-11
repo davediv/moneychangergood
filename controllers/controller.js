@@ -10,14 +10,19 @@ class Controller {
     let adminAccess = req.session.adminAccess;
 
     Currency.findAll()
-      .then((data) => res.render("index", { data, adminAccess }))
+      .then((data) => res.render("index", { data, adminAccess, addSymbol }))
       .catch((err) => res.send(err));
   }
 
   // SIGNUP - GET
   static signup(req, res) {
+    let errors;
+    if (req.query.error) {
+      errors = req.query.error.split(",");
+    }
+    console.log(errors);
     User.findAll()
-      .then((data) => res.render("signup", { data }))
+      .then((data) => res.render("signup", { data, errors }))
       .catch((err) => res.send(err));
   }
 
@@ -29,14 +34,30 @@ class Controller {
     User.create(obj, { returning: ["*"] })
       .then((data) => {
         Inventory.create({ UserId: data.id });
-        res.redirect("/signup");
+        res.redirect("/signin");
       })
-      .catch((err) => res.send(err));
+      .catch((err) => {
+        if (err.name == "SequelizeValidationError") {
+          let errors = err.errors.map((el) => {
+            return el.message;
+          });
+          // res.send(errors)
+          res.redirect(`/signup?error=${errors}`);
+        } else {
+          res.send(err);
+        }
+      });
   }
 
   // SIGNIN - GET
   static signin(req, res) {
     let error = req.query.error;
+
+    if (req.session.adminAccess === false) {
+      res.redirect("/home");
+    } else if (req.session.adminAccess === true) {
+      res.redirect("/userslist");
+    }
 
     res.render("signin", { error }); // TEST
   }
@@ -60,10 +81,10 @@ class Controller {
 
             res.redirect("/home");
           } else {
-            res.send("Password SALAH!");
+            res.redirect("/signin?error=Password SALAH");
           }
         } else {
-          res.send("Account Tidak Ditemukan!");
+          res.redirect("/signin?error=Failed");
         }
       })
       .catch((err) => res.send(err));
@@ -72,6 +93,11 @@ class Controller {
   // ADMIN - GET
   static admin(req, res) {
     let error = req.query.error;
+    if (req.session.adminAccess === false) {
+      res.redirect("/home");
+    } else if (req.session.adminAccess === true) {
+      res.redirect("/userslist");
+    }
     res.render("admin", { error }); // TEST
   }
 
@@ -88,10 +114,10 @@ class Controller {
             req.session.role = data.role;
             res.redirect("/userslist");
           } else {
-            res.send("Password SALAH!");
+            res.redirect("/signin?error=Password SALAH");
           }
         } else {
-          res.send("Account Admin Tidak Ditemukan!");
+          res.redirect("/signin?error=Failed");
         }
       })
       .catch((err) => res.send(err));
@@ -99,13 +125,21 @@ class Controller {
 
   // HOME - isLogin
   static viewHome(req, res) {
+    let transaction = req.query.transaction;
+
     const hour = new Date().getHours();
 
     User.findByPk(req.session.userId, { include: [Inventory, Transaction] })
       .then((data) => {
         let adminAccess = req.session.adminAccess;
         let greeting = greet(data.name, hour);
-        res.render("home", { data, adminAccess, greeting ,addSymbol});
+        res.render("home", {
+          data,
+          adminAccess,
+          greeting,
+          transaction,
+          addSymbol,
+        });
       })
       .catch((err) => res.send(err));
   }
@@ -138,20 +172,23 @@ class Controller {
 
   // USER LIST
   static userlist(req, res) {
+    if (req.session.adminAccess == false) {
+      res.redirect("/home");
+    }
     User.findAll()
       // .then(data => res.send(data))
-      .then((data) => res.render("userslist", { data }))
+      .then((data) => res.render("userslist", { data, addSymbol }))
       .catch((err) => res.send(err));
   }
 
   // DELETE USER
   static deleteUser(req, res) {
     let id = req.params.id;
-    Transaction.destroy({where:{UserId:id}})
-    .then(data=>{
-        Inventory.destroy({where:{UserId:id}})
-        return User.destroy({ where: { id: id } })
-    })
+    Transaction.destroy({ where: { UserId: id } })
+      .then((data) => {
+        Inventory.destroy({ where: { UserId: id } });
+        return User.destroy({ where: { id: id } });
+      })
       .then((data) => res.redirect("/userslist"))
       .catch((err) => res.send(err));
   }
@@ -245,7 +282,7 @@ class Controller {
       })
       .then((result) => {
         if (result == false) {
-          res.redirect(`/home?transaction=failedbuy`);
+          res.redirect(`/home?transaction=transaction failed`);
           return;
         }
         User.update({ balance: result[0] }, { where: { id: userId } });
@@ -291,7 +328,7 @@ class Controller {
       })
       .then((result) => {
         if (result == false) {
-          res.redirect(`/home?transaction=failedsell`);
+          res.redirect(`/home?transaction=transaction failed`);
           return;
         }
         User.update({ balance: result[0] }, { where: { id: userId } });
@@ -317,22 +354,24 @@ class Controller {
   static modifyCurrency(req, res) {
     let { valueSell, valueBuy } = req.body;
     let { id } = req.params;
-    console.log(valueSell, valueBuy);
+    // console.log(valueSell, valueBuy);
 
     if (+valueSell <= 0 || +valueBuy <= 0) {
-      console.log(`test`);
+      // console.log(`test`);
       res.redirect(
         "/currencies?invalidinput=Input value must be greater than zero"
       );
       return;
     }
-    Currency.update({ valueSell, valueBuy }, { where: { id } })
-      .then((_) => {
-        res.redirect("/currencies");
-      })
-      .catch((error) => {
-        res.send(error);
-      });
+    if (req.session.adminAccess == true) {
+      Currency.update({ valueSell, valueBuy }, { where: { id } })
+        .then((_) => {
+          res.redirect("/currencies");
+        })
+        .catch((error) => {
+          res.send(error);
+        });
+    }
   }
 }
 

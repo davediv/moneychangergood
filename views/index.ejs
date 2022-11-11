@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOGIN</title>
+    <title>MONEYCHANGERGOOD</title>
     <%- include('partials/style'); %>
 </head>
 <body>
@@ -34,8 +34,8 @@
             <% data.forEach(el => { %>
                 <tr>
                     <td><%= el.code %></td>
-                    <td><%= el.valueSell %></td>
-                    <td><%= el.valueBuy %></td>
+                    <td><%= addSymbol(el.valueSell, el.code)  %></td>
+                    <td><%= addSymbol(el.valueBuy, el.code) %></td>
                     <td><%= el.country %></td>
                     <td><img class="img-flag" src="<%= el.imageUrl %>" alt="<%= el.name %>"></td>
                 </tr>
