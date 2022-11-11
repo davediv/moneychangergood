@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'Email cannot be empty'
         },
         isEmail: true
+      
       }
     },
     password: {
@@ -45,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     name: DataTypes.STRING,
-    role: DataTypes.BOOLEAN,
+    role: DataTypes.STRING,
     balance: DataTypes.INTEGER
   }, {
     sequelize,
@@ -60,7 +61,7 @@ module.exports = (sequelize, DataTypes) => {
     const hash = Bcrypt.hashSync(user.password, salt)
 
     user.password = hash
-    user.balance = 1000000
+    user.balance = 100000000
 
     // Inventory.create({UserId:user.id})
   })
