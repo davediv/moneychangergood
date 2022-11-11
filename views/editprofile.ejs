@@ -4,9 +4,47 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Edit Profile</title>
+    <%- include('partials/style'); %>
 </head>
 <body>
+    <%- include('partials/navbarin'); %>
+
+    <div class="container">
+        <h1>Edit Profile</h1>
+        
+        <form action="/editprofile" method="post">
+            <div class="input-wrap">
+                <% if (notif) { %>
+                    <p style="color: green;"><%= notif %></p> 
+                <% } %>
+            </div>
+    
+            <div class="input-wrap">
+                <label for="name">Name : </label><br>
+                <input type="text" id="name" name="name" value="<%= data.name %>">
+            </div>
+        
+            <div class="input-wrap">
+                <label for="name">Email : </label><br>
+                <input type="email" id="email" name="email" value="<%= data.email %>">
+            </div>
+        
+            <div class="input-wrap">
+                <label for="name">Balance : </label><br>
+                <input type="number" id="balance" name="balance" value="<%= data.balance %>" disabled>
+            </div>
+    
+            <div class="input-wrap">
+                <input type="hidden" id="email" name="id" value="<%= data.id %>">
+                <button type="submit">EDIT</button>
+            </div>
+    
+        </form>
+
+    </div>
+
+    <%- include('partials/footer'); %>
     
 </body>
 </html>

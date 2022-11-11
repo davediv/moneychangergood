@@ -8,30 +8,22 @@
     <%- include('partials/style'); %>
 </head>
 <body>
+    <%- include('partials/navbar'); %>
+
+    <div class="container">
     <h1>MONEY CHANGER</h1>
+
+    <div class="banner">
+        <img class="img-banner" src="https://i.ibb.co/2FmRJhB/banner.jpg" alt="">
+    </div>
 
     <div class="btn-wrap">
         <a class="btn-click" href="/signup">SIGNUP</a>
         <a class="btn-click" href="/signin">SIGNIN</a>
     </div>
 
-
-<!-- {
-    "id": 1,
-    "name": "singaporeDollar",
-    "valueSell": 11000,
-    "valueBuy": 11201,
-    "country": "Singapore",
-    "imageUrl": "https://www.worldometers.info/img/flags/sn-flag.gif",
-    "code": "SGD",
-    "createdAt": "2022-11-10T08:06:00.399Z",
-    "updatedAt": "2022-11-10T08:06:00.399Z"
-  }, -->
-    
-    <table class="table" border="1px">
+    <table class="table border-gray">
         <thead>
-            <th>Id</th>
-            <th>Name</th>
             <th>Code</th>
             <th>Price Sell</th>
             <th>Price Buy</th>
@@ -41,8 +33,6 @@
         <tbody>
             <% data.forEach(el => { %>
                 <tr>
-                    <td><%= el.id %></td>
-                    <td><%= el.name %></td>
                     <td><%= el.code %></td>
                     <td><%= el.valueSell %></td>
                     <td><%= el.valueBuy %></td>
@@ -52,7 +42,7 @@
             <% }) %>
         </tbody>
     </table>
-    
-    
+
+    </div>
 </body>
 </html>

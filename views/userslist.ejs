@@ -4,9 +4,51 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Edit User Lists</title>
+    <%- include('partials/style'); %>
 </head>
 <body>
-    
+    <%- include('partials/navbarin'); %>
+    <!-- Users list to delete user <<<< exists on home page role :admin -->
+    <!--
+        {
+    "id": 1,
+    "email": "yes@mail.com",
+    "password": "12345",
+    "name": "Yes Man",
+    "role": false,
+    "balance": 1000000,
+    "createdAt": "2022-11-10T08:06:00.392Z",
+    "updatedAt": "2022-11-10T08:06:00.392Z"
+  },
+     -->
+
+     <div class="container">
+         <table class="table" border="1px">
+             <thead>
+                 <th>ID</th>
+                 <th>EMAIL</th>
+                 <th>NAME</th>
+                 <th>ROLE</th>
+                 <th>BALANCE</th>
+                 <th>ACTION</th>
+             </thead>
+             <tbody>
+                 <% data.forEach(el => { %>
+                     <tr>
+                         <td><%= el.id %></td>
+                         <td><%= el.email %></td>
+                         <td><%= el.name %></td>
+                         <td><%= el.role %></td>
+                         <td><%= el.balance %></td>
+                         <td><a href="/user/<%= el.id %>/delete">DELETE</a></td>
+                     </tr>
+                 <% }) %>
+             </tbody>
+         </table>
+     </div>
+
+
+    <%- include('partials/footerin'); %>
 </body>
 </html>

@@ -17,17 +17,30 @@ router.get('/signin', Controller.signin);
 // LOGIN - POST
 router.post('/signin', Controller.postSignin);
 
+// LOGIN ADMIN - FORM
+router.get('/admin', Controller.admin);
+
+// LOGIN ADMIN - POST
+router.post('/admin', Controller.postAdmin);
+
+// HOME - AFTER LOGIN
 router.get("/home",isLogin,isAdmin ,Controller.viewHome)
 
-// router.use((req, res, next) => {
+// GET - EDIT PROFILE
+router.get("/editprofile", isLogin, isAdmin, Controller.editProfile)
 
-//     if (req.session.userId) {
-//         next()
-//     } else {
-//         let error = "Login first!"
-//         res.redirect(`/signin?error=${error}`)
-//     }
-// })
+// POST - EDIT PROFILE
+router.post("/editprofile", isLogin, isAdmin, Controller.postEditProfile)
+
+// USERS LIST
+router.get("/userslist", isLogin, isAdmin, Controller.userlist)
+
+// DELETE USER
+router.get("/user/:id/delete", isLogin, isAdmin, Controller.deleteUser)
+
+// LOGOUT USER
+router.get("/logout", Controller.logout)
+
 
 
 // isLogin
