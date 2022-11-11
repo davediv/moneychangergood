@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Currency extends Model {
     /**
@@ -11,24 +9,29 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Currency.hasMany(models.Transaction)
+      Currency.hasMany(models.Transaction, { onDelete: "cascade" });
     }
 
-    toRupiah(value){
-      return new Intl.NumberFormat( "id-ID",{style:"currency", currency:`IDR`}).format(value)
-
+    toRupiah(value) {
+      return new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: `IDR`,
+      }).format(value);
     }
   }
-  Currency.init({
-    name: DataTypes.STRING,
-    valueSell: DataTypes.INTEGER,
-    valueBuy: DataTypes.INTEGER,
-    country: DataTypes.STRING,
-    imageUrl: DataTypes.STRING,
-    code: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Currency',
-  });
+  Currency.init(
+    {
+      name: DataTypes.STRING,
+      valueSell: DataTypes.INTEGER,
+      valueBuy: DataTypes.INTEGER,
+      country: DataTypes.STRING,
+      imageUrl: DataTypes.STRING,
+      code: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: "Currency",
+    }
+  );
   return Currency;
 };

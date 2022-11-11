@@ -1,8 +1,6 @@
-'use strict';
-const {
-  Model, Inventory
-} = require('sequelize');
-const Bcrypt = require('bcrypt')
+"use strict";
+const { Model, Inventory } = require("sequelize");
+const Bcrypt = require("bcrypt");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -12,64 +10,64 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasOne(models.Inventory)
-      User.hasMany(models.Transaction)
+      User.hasOne(models.Inventory);
+      User.hasMany(models.Transaction, { onDelete: "cascade" });
     }
   }
-  User.init({
-    email: {
-      type: DataTypes.STRING,
-      // unique: true,
-      allowNull: false, 
-      validate: {
-        notNull: {
-          msg: 'Email cannot be empty'
+  User.init(
+    {
+      email: {
+        type: DataTypes.STRING,
+        // unique: true,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Email cannot be empty",
+          },
+          notEmpty: {
+            msg: "Email cannot be empty",
+          },
+          isEmail: true,
         },
-        notEmpty: {
-          msg: 'Email cannot be empty'
+        unique: {
+          args: true,
+          msg: "Email address already in use!",
         },
-        isEmail: true
       },
-      unique: {
-        args: true,
-        msg: 'Email address already in use!' }
-      
-      }
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notNull: {
-          msg: 'Password cannot be empty'
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Password cannot be empty",
+          },
+          notEmpty: {
+            msg: "Password cannot be empty",
+          },
+          len: [8, 16],
         },
-        notEmpty: {
-          msg: 'Password cannot be empty'
-        },
-        len: [8, 16]
-      }
+      },
+      name: DataTypes.STRING,
+      role: DataTypes.STRING,
+      balance: DataTypes.INTEGER,
     },
-    name: DataTypes.STRING,
-    role: DataTypes.STRING,
-    balance: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'User',
-  });
+    {
+      sequelize,
+      modelName: "User",
+    }
+  );
 
   // CREATE INVENTORY
 
+  User.beforeCreate((user) => {
+    const salt = Bcrypt.genSaltSync(12);
+    const hash = Bcrypt.hashSync(user.password, salt);
 
-  User.beforeCreate(user => {
-    const salt = Bcrypt.genSaltSync(12)
-    const hash = Bcrypt.hashSync(user.password, salt)
-
-    user.password = hash
-    user.balance = 100000000
+    user.password = hash;
+    user.balance = 100000000;
 
     // Inventory.create({UserId:user.id})
-  })
+  });
 
-  
   return User;
 };

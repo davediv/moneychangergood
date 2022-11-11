@@ -23,7 +23,7 @@
                     <tr>
                         <td><%= data.name %></td>
                         <td><%= data.email %></td>
-                        <td><%= data.balance %></td>
+                        <td><%= addSymbol(data.balance, "IDR") %></td>
                     </tr>
             </tbody>
         </table>
@@ -44,16 +44,16 @@
             </thead>
             <tbody>
                     <tr>
-                        <td><%= data.Inventory.usDollar %></td>
-                        <td><%= data.Inventory.britishPoundSterling %></td>
-                        <td><%= data.Inventory.euro %></td>
-                        <td><%= data.Inventory.japaneseYen %></td>
-                        <td><%= data.Inventory.singaporeDollar %></td>
-                        <td><%= data.Inventory.chinaRenminbi %></td>
-                        <td><%= data.Inventory.australianDollar %></td>
-                        <td><%= data.Inventory.canadianDollar %></td>
-                        <td><%= data.Inventory.swissFranc %></td>
-                        <td><%= data.Inventory.hongkongDollar %></td>
+                        <td><%= addSymbol(data.Inventory.usDollar, "USD") %></td>
+                        <td><%= addSymbol(data.Inventory.britishPoundSterling,"GBP") %></td>
+                        <td><%= addSymbol(data.Inventory.euro,"EUR") %></td>
+                        <td><%= addSymbol(data.Inventory.japaneseYen, "JPY") %></td>
+                        <td><%= addSymbol(data.Inventory.singaporeDollar, "SGD") %></td>
+                        <td><%= addSymbol(data.Inventory.chinaRenminbi, "CNY") %></td>
+                        <td><%= addSymbol(data.Inventory.australianDollar, "AUD") %></td>
+                        <td><%= addSymbol(data.Inventory.canadianDollar, "CAD") %></td>
+                        <td><%= addSymbol(data.Inventory.swissFranc, "CHF") %></td>
+                        <td><%= addSymbol(data.Inventory.hongkongDollar, "HKD") %></td>
                     </tr>
             </tbody>
         </table>
@@ -64,13 +64,13 @@
             <thead>
             </thead>
             <tbody>
-                <tr>
-                        <% data.Transactions.forEach(el => { %>
+                <% data.Transactions.forEach(el => { %>
+                    <tr>
                         <td><%= el.transactionType %></td>
                         <td><%= el.transactionAmount %></td>
                         <td><%= el.createdAt %></td>
-                        <% }) %>
                     </tr>
+                    <% }) %>
             </tbody>
         </table>
         
