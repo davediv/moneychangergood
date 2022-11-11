@@ -1,6 +1,8 @@
-const {User, Inventory, Currency, Transaction} = require('../models')
+const { User, Inventory, Currency, Transaction } = require('../models')
 const Bcrypt = require('Bcrypt')
 const greet = require('greet-by-time')
+const addSymbol = require('../helpers/symbolAdder')
+const { Op } = require('sequelize')
 
 class Controller {
 
@@ -19,20 +21,20 @@ class Controller {
     static signup(req, res) {
 
         User.findAll()
-            .then(data => res.render("signup", {data}))
+            .then(data => res.render("signup", { data }))
             .catch(err => res.send(err))
 
     }
 
     // SIGNUP - POST
     static postSignup(req, res) {
-        let {name, email, password, role} = req.body
-        let obj = {name, email, password, role}
+        let { name, email, password, role } = req.body
+        let obj = { name, email, password, role }
 
-        User.create(obj, {returning:["*"]})
-        .then(data => {
-            
-            Inventory.create({UserId:data.id})
+        User.create(obj, { returning: ["*"] })
+            .then(data => {
+
+                Inventory.create({ UserId: data.id })
                 res.redirect("/signup")
             })
             .catch(err => res.send(err))
@@ -43,19 +45,19 @@ class Controller {
     static signin(req, res) {
         let error = req.query.error
 
-        res.render("signin", {error}) // TEST
+        res.render("signin", { error }) // TEST
     }
 
     // SIGNIN - POST
     static postSignin(req, res) {
-        let {email, password} = req.body
+        let { email, password } = req.body
 
         User.findOne({ where: { email: email } })
             // .then(data => res.redirect("/signup"))
             .then(data => {
 
                 if (data) {
-                    let isPassword = Bcrypt.compareSync( password,data.password)
+                    let isPassword = Bcrypt.compareSync(password, data.password)
                     // console.log(isPassword);
                     // console.log(password, data.password);
                     if (isPassword) {
@@ -68,7 +70,7 @@ class Controller {
                     } else {
                         res.send("Password SALAH!")
                     }
-                    
+
                 } else {
                     res.send("Account Tidak Ditemukan!")
                 }
@@ -197,11 +199,156 @@ class Controller {
               res.end()
             }
 
+    static viewHome(req, res) {
+        // console.log(req.session.userId);
+        // res.send(req.session.userId)
+        User.findByPk(req.session.userId, { include: [Inventory] })
+            .then(data => {
+                // res.send(data)
+                let adminAccess = req.session.adminAccess
+                res.render("home", { data, adminAccess })
+            })
     }
 
 
+    static viewCurrencies(req, res) {
+        let invalidMsg = {}
+        let option = {}
+        // console.log(req.query.min, req.query.max);
+        if (req.query.filterby) {
+            let filterBy = req.query
+            let minValue = +req.query.min
+            let maxValue = +req.query.max
+            if (minValue > 0 && maxValue > 0) {
+                if (minValue >= maxValue) {
+                    invalidMsg.failedFilter = `minimum value must be lower than max value`
+                }
+                console.log(filterBy.filterby, minValue, maxValue);
+                option.where = { [filterBy.filterby]: { [Op.between]: [minValue, maxValue] } }
+            } else {
+                invalidMsg.failedFilter = `all input is required when filter is used`
+            }
+        }
+        if (req.query.sort) {
+            option.order = [[req.query.sort, "DESC"]]
+        }
+        if (req.query.invalidinput) {
+            invalidMsg.msg = req.query.invalidinput
+        }
+        let currencies
+        Currency.findAll(option)
+            .then(data => {
+                currencies = data
+                let id = req.session.userId
+                return User.findByPk(id, {
+                    include: [Inventory]
+                })
+            })
+            .then(data => {
+                let adminAccess = req.session.adminAccess
+                res.render("currencies", { currencies, data, adminAccess, addSymbol, invalidMsg })
+            })
+            .catch(error => {
+                res.send(error)
+            })
+    }
+
+    static transactionBuy(req, res) {
+
+        let { transactionAmount } = req.body
+        let { id } = req.params
+        let { userId } = req.session
+        let userData
+        if (+transactionAmount < 1) {
+            res.redirect(`/currencies?invalidinput=Input value must be greater than zero`)
+            return
+        }
+        // console.log(transactionAmount);
+        User.findByPk(userId, { include: [Inventory] })
+            .then(data => {
+                userData = data
+                return Currency.findByPk(id)
+            })
+            .then(data => {
+                // console.log(data);
+                return Transaction.transactionBuy(data, transactionAmount, userData)
+            })
+            .then(result => {
+                if (result == false) {
+                    res.redirect(`/home?transaction=failedbuy`)
+                    return
+                }
+                User.update({ balance: result[0] }, { where: { id: userId } })
+                let currencyName = result[1]
+                Inventory.update({ [currencyName]: result[2] }, { where: { UserId: userId } })
+                // console.log;
+                Transaction.create({ transactionAmount, transactionType: "Buy", CurrencyId: id, UserId: userId })
+                res.redirect('/home?transaction=success')
+            })
+            .catch(error => {
+                res.send(error)
+            })
+
+    }
+
+    static transactionSell(req, res) {
+
+        let { transactionAmount } = req.body
+        let { id } = req.params
+        let { userId } = req.session
+        let userData
+        if (+transactionAmount < 1) {
+            res.redirect(`/currencies?invalidinput=Input value must be greater than zero`)
+            return
+        }
+        // console.log(transactionAmount);
+        User.findByPk(userId, { include: [Inventory] })
+            .then(data => {
+                userData = data
+                return Currency.findByPk(id)
+            })
+            .then(data => {
+                // console.log(data);
+                return Transaction.transactionSell(data, transactionAmount, userData)
+            })
+            .then(result => {
+                if (result == false) {
+                    res.redirect(`/home?transaction=failedsell`)
+                    return
+                }
+                User.update({ balance: result[0] }, { where: { id: userId } })
+                let currencyName = result[1]
+                Inventory.update({ [currencyName]: result[2] }, { where: { UserId: userId } })
+                // console.log;
+                Transaction.create({ transactionAmount, transactionType: "Sell", CurrencyId: id, UserId: userId })
+                res.redirect('/home?transaction=success')
+            })
+            .catch(error => {
+                res.send(error)
+            })
 
 
+    }
+
+    static modifyCurrency(req, res) {
+        let { valueSell, valueBuy } = req.body
+        let { id } = req.params
+        console.log(valueSell, valueBuy);
+
+        if (+valueSell <= 0 || +valueBuy <= 0) {
+            console.log(`test`);
+            res.redirect('/currencies?invalidinput=Input value must be greater than zero')
+            return
+        }
+        Currency.update({ valueSell, valueBuy }, { where: { id } })
+            .then(_ => {
+                res.redirect('/currencies')
+            })
+            .catch(error => {
+                res.send(error)
+            })
+
+    }
 
 }
 

@@ -13,6 +13,11 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Currency.hasMany(models.Transaction)
     }
+
+    toRupiah(value){
+      return new Intl.NumberFormat( "id-ID",{style:"currency", currency:`IDR`}).format(value)
+
+    }
   }
   Currency.init({
     name: DataTypes.STRING,

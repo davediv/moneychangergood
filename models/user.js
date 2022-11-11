@@ -33,6 +33,8 @@ module.exports = (sequelize, DataTypes) => {
       unique: {
         args: true,
         msg: 'Email address already in use!' }
+      
+      }
     },
     password: {
       type: DataTypes.STRING,
@@ -63,7 +65,7 @@ module.exports = (sequelize, DataTypes) => {
     const hash = Bcrypt.hashSync(user.password, salt)
 
     user.password = hash
-    user.balance = 1000000
+    user.balance = 100000000
 
     // Inventory.create({UserId:user.id})
   })

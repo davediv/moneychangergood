@@ -41,10 +41,16 @@ router.get("/user/:id/delete", isLogin, isAdmin, Controller.deleteUser)
 // LOGOUT USER
 router.get("/logout", Controller.logout)
 
-
-
 // isLogin
 // router.post('/test123', Controller.udahLogin);
+
+//CURRENCIES - GET
+router.get("/currencies",isLogin, isAdmin, Controller.viewCurrencies)
+
+//CURRENCY BUY - SELL - EDIT
+router.post('/transactionBuy/:id', isLogin, Controller.transactionBuy)
+router.post('/transactionSell/:id', isLogin, Controller.transactionSell)
+router.post('/modifycurrency/:id', isLogin, isAdmin, Controller.modifyCurrency)
 
 
 
