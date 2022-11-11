@@ -1,20 +1,43 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+
 <style>
     * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
     }
-    
+
     body {
+        font-family: 'Poppins', sans-serif;
+    }
+    
+    .container {
+        margin-top: 95px;
+        margin-bottom: 62px;
         padding: 1rem;
     }
     
     h1, h2, h3, h4, h5 {
+        font-family: 'Poppins', sans-serif;
         text-align: center;
     }
     
     table {
         margin: 1rem auto;
+        padding: 1.5rem;
+        box-shadow: rgb(229 232 235) 0px 1px 0px 0px;
+    }
+
+    th {
+        background-color: #000;
+        color: #fff;
+    }
+
+    td {
+        padding: 1rem 2rem;
     }
     
     button {
@@ -22,8 +45,77 @@
     }
 
     form {
-        border: 1px solid #999;
+        display: block;
+        margin: auto;
+        max-width: 640px;
+        border: 1px solid rgb(229, 232, 235);
         border-radius: 3px;
+        text-align: center;
+    }
+
+    nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 1rem;
+        background-color: #000;
+        color: #fff;
+    }
+
+    footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        background-color: #000;
+        color: #fff;    
+    }
+
+    input {
+        padding: .3rem;
+    }
+
+    .banner {
+        max-width: 620px;
+        margin: auto;
+    }
+    
+    .img-banner {
+        max-width: 720px;
+        height: auto;
+        border-radius: 9px;
+    }
+
+    .btn-mobile {
+        font-size: 1.5rem;
+        color: #fff;
+        padding: .3rem;
+        text-align: center;
+    }
+
+    .txt-mobile {
+        font-size: .8rem;
+        text-decoration: none;
+    }
+
+    .logo {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 900;
+        font-size: 1.5rem;
+    }
+
+    .logo span {
+        color: #2181e2;
+    }
+
+    .border-gray {
+        border-radius: 12px;
+        border: 1px solid rgb(229, 232, 235);
     }
     
     .btn-wrap {
@@ -44,6 +136,23 @@
     
     .btn-click:hover {
         background-color: #333;
+    }
+
+    .btn-clock {
+        margin: .5rem 1rem;
+        padding: .5rem 1rem;
+        background-color: #fff;
+        color: #000;
+        border: none;
+        text-decoration: none;
+        border: 1px solid #000;
+        border-radius: 3px;
+    }
+
+    .btn-clock:hover {
+        background-color: #000;
+        color: #fff;
+        border: 1px solid #fff;
     }
     
     .input-wrap {

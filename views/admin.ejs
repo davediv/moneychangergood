@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIGNIN</title>
+    <title>LOGIN ADMIN</title>
     <%- include('partials/style'); %>
 </head>
 <body>
     <%- include('partials/navbar'); %>
 
     <div class="container">
-        <h1>LOGIN</h1>
+        <h1>LOGIN ADMIN</h1>
     
-        <form action="/signin" method="post">
+        <form action="/admin" method="post">
     
             <div class="input-wrap">
                 <% if (error) { %>
@@ -36,9 +36,6 @@
             </div>
     
         </form>
-        <div class="btn-wrap">
-            <a class="btn-click" href="/admin">LOGIN ADMIN</a>
-        </div>
     </div>
     
     
