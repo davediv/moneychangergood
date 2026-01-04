@@ -1,8 +1,12 @@
 const { User, Inventory, Currency, Transaction } = require("../models");
-const Bcrypt = require("Bcrypt");
-const greet = require("greet-by-time");
-const addSymbol = require("../helpers/symbolAdder");
 const { Op } = require("sequelize");
+const Bcrypt = require("Bcrypt");
+const addSymbol = require("../helpers/symbolAdder");
+
+function greet(name, hour) {
+  const period = hour < 12 ? "morning" : hour < 18 ? "afternoon" : "evening";
+  return `Good ${period}, ${name}!`;
+}
 
 class Controller {
   // INDEX
