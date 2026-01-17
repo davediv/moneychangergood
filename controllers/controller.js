@@ -3,6 +3,12 @@ const { Op } = require("sequelize");
 const Bcrypt = require("Bcrypt");
 const addSymbol = require("../helpers/symbolAdder");
 
+/**
+ * Create a friendly greeting for a person based on the hour of day.
+ * @param {string} name - The person's name to include in the greeting.
+ * @param {number} hour - Hour of day in 24-hour format (0–23) used to select morning, afternoon, or evening.
+ * @returns {string} A greeting string in the form "Good <period>, <name>!" where <period> is "morning", "afternoon", or "evening".
+ */
 function greet(name, hour) {
   const period = hour < 12 ? "morning" : hour < 18 ? "afternoon" : "evening";
   return `Good ${period}, ${name}!`;
