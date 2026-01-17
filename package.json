@@ -4,7 +4,7 @@
   "description": "### databasename : money_changerDB",
   "main": "app.js",
   "dependencies": {
-    "bcrypt": "^5.1.1",
+    "bcrypt": "^6.0.0",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
     "express-session": "^1.18.1",
