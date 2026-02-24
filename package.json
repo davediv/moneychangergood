@@ -25,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/davediv/moneychangergood/issues"
   },
-  "homepage": "https://github.com/davediv/moneychangergood#readme"
+  "homepage": "https://github.com/davediv/moneychangergood#readme",
+  "overrides": {
+    "minimatch": ">=5.1.7"
+  }
 }
